@@ -6,10 +6,6 @@ import { generateToken } from "../lib/utils.js";
 
 //login user
 
-// const createToken = (id) => {
-//   return jwt.sign({ id }, process.env.JWT_SECRET);
-// };
-
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -38,13 +34,13 @@ const registerUser = async (req, res) => {
   try {
     const exist = await userModel.findOne({ email });
     if (exist) {
-      return res.json({ message: "a user with mail provided already exist" });
+      return res.json({ message: "a user with email provided already exist" });
     }
     // validating email format and strong password
 
-    if (!validator.isEmail(email)) {
-      return res.json({ message: "provide a valid email" });
-    }
+    // if (!validator.isEmail(email)) {
+    //   return res.json({ message: "provide a valid email" });
+    // }
     if (password.length < 8) {
       return res.json({ message: "password must be 8 min" });
     }
