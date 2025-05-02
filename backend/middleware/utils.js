@@ -1,24 +1,3 @@
-// import jwt from "jsonwebtoken";
-
-// const authMiddleware = async (req, res, next) => {
-//   const token = req.headers.authorization;
-
-//   try {
-//     console.log(token);
-//     if (!token) {
-//       res.status(404).json({ message: "Unauthorized:No token provided" });
-//     }
-//     const isToken = token.split(" ")[1];
-//     const decode = jwt.verify(isToken, process.env.JWT_SECRET);
-//     req.body.userId = decode.userId;
-//     next();
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// };
-
-// export default authMiddleware;
 import jwt from "jsonwebtoken";
 
 const authMiddleware = async (req, res, next) => {

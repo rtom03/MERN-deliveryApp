@@ -11,10 +11,10 @@ const addToCart = async (req, res) => {
       cartData[req.body.itemId] += 1;
     }
     await userModel.findByIdAndUpdate(req.body.userId, { cartData });
-    res.status(201).json({ message: "Item added to cart" });
+    return res.status(201).json({ message: "Item added to cart" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
