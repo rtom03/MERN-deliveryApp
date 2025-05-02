@@ -1,11 +1,9 @@
 import userModel from "../models/userModel.js";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import { generateToken } from "../lib/utils.js";
 
 //login user
-
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -28,7 +26,6 @@ const loginUser = async (req, res) => {
 };
 
 // register user
-
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -38,9 +35,9 @@ const registerUser = async (req, res) => {
     }
     // validating email format and strong password
 
-    // if (!validator.isEmail(email)) {
-    //   return res.json({ message: "provide a valid email" });
-    // }
+    if (!validator.isEmail(email)) {
+      return res.json({ message: "provide a valid email" });
+    }
     if (password.length < 8) {
       return res.json({ message: "password must be 8 min" });
     }

@@ -27,7 +27,7 @@ const Add = ({ url }) => {
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
     formData.append("image", image);
-    const response = await axios.post(`${url}api/additem`, formData);
+    const response = await axios.post(`${url}/api/additem`, formData);
     if (response) {
       setData({
         name: "",
