@@ -58,6 +58,15 @@ const StoreContextProvider = (props) => {
     }
   };
 
+  const getSearch = async (word) => {
+    const response = await axios.get(`${apiUrl}/api/search/`, {
+      params: { word },
+    });
+    if (response.status === 201) {
+      return response.data;
+    }
+  };
+
   const getTotalCartAmount = (item) => {
     if (cartItems[item] > 0) {
       let itemInfo = foodList.find((product) => product._id === item);
@@ -105,6 +114,7 @@ const StoreContextProvider = (props) => {
     fetchFoodList,
     getTotalCartAmount,
     getCart,
+    getSearch,
   };
   return (
     <StoreContext.Provider value={contextValue}>
