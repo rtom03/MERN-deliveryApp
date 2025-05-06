@@ -1,14 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, getCart, removeFromCart, foodList, apiUrl } =
+  const { cartItems, removeFromCart, foodList, apiUrl, getTotalCartAmount } =
     useContext(StoreContext);
-  useEffect(() => {
-    getCart(localStorage.getItem("token"));
-  }, []);
+
   return (
     <div className="cart">
       <div className="cart-items">
@@ -29,9 +27,9 @@ const Cart = () => {
                 <div className="cart-items-title cart-items-item" id={index}>
                   <img src={`${apiUrl}/images/` + item.image} alt="" />
                   <p>{item.name}</p>
-                  <p>{item.price}</p>
+                  <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>
-                  <p>{item.price * cartItems[item._id]}</p>
+                  <p>${item.price * cartItems[item._id]}</p>
                   <p
                     className="remove"
                     onClick={() => removeFromCart(item._id)}
@@ -50,18 +48,19 @@ const Cart = () => {
           <h2>Cart Totals</h2>
           <div>
             <div className="cart-total-details">
-              <p>Subtotal</p>
-              <p>{80}</p>
+              <p>Subtotal</p>${getTotalCartAmount()}
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>{2}</p>
+              <p>
+                ${((getTotalCartAmount() / getTotalCartAmount()) * 3) / 250}
+              </p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Total</p>
-              <p>{3000}</p>
+              <p>${getTotalCartAmount()}</p>
             </div>
           </div>
           <Link to={"/order"}>
