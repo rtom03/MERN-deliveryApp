@@ -6,6 +6,7 @@ import foodRouter from "./routes/foodRoute.js";
 import authRouter from "./routes/authRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import searchRouter from "./routes/searchRoute.js";
 
 // app config
 
@@ -26,6 +27,7 @@ app.use("/api", foodRouter);
 app.use("/api", authRouter);
 app.use("/api", cartRouter);
 app.use("/api", orderRouter);
+app.use("/api", searchRouter);
 
 app.use("/images", express.static("uploads"));
 

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import "./Navbar.css";
-import search from "../../assets/search_icon.png";
 import basket from "../../assets/basket_icon.png";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
@@ -8,7 +7,22 @@ import { assets } from "../../assets/assets";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
-  const { token, logout } = useContext(StoreContext);
+  const { token, logout, getSearch } = useContext(StoreContext);
+  const [searchs, setSearch] = useState("");
+  const [results, setResults] = useState([]);
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setSearch((search) => ({ ...search, [name]: value }));
+  };
+
+  const onSearch = async (event) => {
+    event.preventDefault();
+    const data = getSearch(searchs);
+    setResults(data);
+    console.log(data);
+  };
   return (
     <div className="navbar">
       <Link to={"/"}>
@@ -45,7 +59,17 @@ const Navbar = ({ setShowLogin }) => {
         </a>
       </ul>
       <div className="navbar-right">
-        <img src={search} alt="" />
+        <form action="" className="search-form" onSubmit={onSearch}>
+          <img src={assets.search_icon} alt="" />
+          <div className="search-dropdown">
+            <input
+              type="text"
+              name="search"
+              placeholder="search..."
+              onChange={handleChange}
+            />
+          </div>
+        </form>
         <Link className="navbar-search-icon" to={"/cart"}>
           <img src={basket} alt="" />
           <div className="dot"></div>
@@ -68,6 +92,13 @@ const Navbar = ({ setShowLogin }) => {
             </ul>
           </div>
         )}
+      </div>
+      <div>
+        {results.map((item, index) => {
+          <div id={index}>
+            <h2>{item.name}</h2>
+          </div>;
+        })}
       </div>
     </div>
   );
