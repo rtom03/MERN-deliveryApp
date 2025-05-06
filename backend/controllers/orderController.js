@@ -17,37 +17,41 @@ const placeOrder = async (req, res) => {
     });
     await newOrder.save();
     await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
+    // console.log(newOrder);
 
     const lineItems = req.body.items.map((item) => ({
-      priceData: {
+      price_data: {
         currency: "usd",
-        productData: {
+        product_data: {
           name: item.name,
         },
-        unitAmount: item.price * 100,
+        unit_amount: item.price * 100,
       },
       quantity: item.quantity,
     }));
 
     lineItems.push({
-      priceData: {
+      price_data: {
         currency: "usd",
-        productData: {
+        product_data: {
           name: "Delivery Charges",
         },
-        unitAmount: 2 * 100,
+        unit_amount: 2 * 100,
       },
       quantity: 1,
     });
 
-    const session = await stripe.checkout.sessions.create({
+    const session_url = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: "payment",
       success_url: `${frontendUrl}/verify?success=true&orderId=${newOrder._id}`,
       cancel_url: `${frontendUrl}/verify?success=false&orderId=${newOrder._id}`,
     });
 
-    res.status(201).json({ message: "", success_url: session.url });
+    res
+      .status(201)
+      .json({ message: "Payment Successful", success_url: session_url.url });
+    console.log(session_url);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
