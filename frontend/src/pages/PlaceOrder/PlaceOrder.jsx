@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./PlaceOrder.css";
 import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
@@ -144,7 +144,7 @@ const PlaceOrder = () => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              {/* <p>{getTotalCartAmount()}</p> */}
+              <p>{getTotalCartAmount}</p>
             </div>
             <hr />
             <div className="cart-total-details">
@@ -154,8 +154,8 @@ const PlaceOrder = () => {
             <hr />
             <div className="cart-total-details">
               <p>Total</p>
-              <p>${3000}</p>
-              {/* <p>{getTotalCartAmount()}</p> */}
+              {/* <p>${3000}</p> */}
+              <p>{getTotalCartAmount}</p>
             </div>
           </div>
 
