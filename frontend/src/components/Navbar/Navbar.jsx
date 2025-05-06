@@ -7,7 +7,8 @@ import { assets } from "../../assets/assets";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
-  const { token, logout, getSearch } = useContext(StoreContext);
+  const { token, logout, getSearch, getTotalCartAmount } =
+    useContext(StoreContext);
   const [searchs, setSearch] = useState("");
   const [results, setResults] = useState([]);
 
@@ -72,7 +73,7 @@ const Navbar = ({ setShowLogin }) => {
         </form>
         <Link className="navbar-search-icon" to={"/cart"}>
           <img src={basket} alt="" />
-          <div className="dot"></div>
+          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </Link>
         {!token ? (
           <button onClick={() => setShowLogin(true)}>sign in</button>

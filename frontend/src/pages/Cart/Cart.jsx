@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, getCart, removeFromCart, foodList, apiUrl } =
@@ -43,6 +44,37 @@ const Cart = () => {
             );
           }
         })}
+      </div>
+      <div className="cart-bottom">
+        <div className="cart-total">
+          <h2>Cart Totals</h2>
+          <div>
+            <div className="cart-total-details">
+              <p>Subtotal</p>
+              <p>{80}</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <p>Delivery Fee</p>
+              <p>{2}</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <p>Total</p>
+              <p>{3000}</p>
+            </div>
+          </div>
+          <Link to={"/order"}>
+            <button>PROCEED TO CHECKOUT</button>
+          </Link>
+        </div>
+        <div className="cart-promocode">
+          <p>if you have a promo code, enter it here</p>
+          <div className="cart-promocode-input">
+            <input type="text" placeholder="promo code" />
+            <button>Submit</button>
+          </div>
+        </div>
       </div>
     </div>
   );

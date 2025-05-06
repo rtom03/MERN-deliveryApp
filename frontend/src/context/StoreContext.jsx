@@ -9,7 +9,6 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [token, setToken] = useState("");
   const [foodList, setFoodList] = useState([]);
-  let totalAmount;
   const apiUrl = "http://localhost:5000";
   const navigate = useNavigate();
 
@@ -67,10 +66,13 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  const getTotalCartAmount = (item) => {
-    if (cartItems[item] > 0) {
-      let itemInfo = foodList.find((product) => product._id === item);
-      totalAmount += itemInfo.price * cartItems[item];
+  const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = foodList.find((product) => product._id === item);
+        totalAmount += itemInfo.price * cartItems[item];
+      }
     }
     return totalAmount;
   };
