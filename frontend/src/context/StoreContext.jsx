@@ -9,6 +9,7 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [token, setToken] = useState("");
   const [foodList, setFoodList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const apiUrl = "http://localhost:5000";
   const navigate = useNavigate();
 
@@ -117,6 +118,8 @@ const StoreContextProvider = (props) => {
     getTotalCartAmount,
     getCart,
     getSearch,
+    loading,
+    setLoading,
   };
   return (
     <StoreContext.Provider value={contextValue}>
