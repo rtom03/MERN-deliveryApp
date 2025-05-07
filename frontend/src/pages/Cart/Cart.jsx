@@ -53,14 +53,12 @@ const Cart = () => {
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>
-                ${((getTotalCartAmount() / getTotalCartAmount()) * 3) / 250}
-              </p>
+              <p>${20}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Total</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>${getTotalCartAmount() + 20}</p>
             </div>
           </div>
           <Link to={"/order"}>

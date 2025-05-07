@@ -34,6 +34,23 @@
 .place-order .cart-total-buttom {
   margin-top: 30px;
 }
+/* styles.css */
+
+.rolling-icon {
+  width: 2rem; /* Tailwind w-8 = 2rem */
+  height: 2rem; /* Tailwind h-8 = 2rem */
+  color: #3b82f6; /* Tailwind text-blue-500 */
+  animation: roll 2s linear infinite;
+}
+
+@keyframes roll {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 @media (max-width: 750px) {
   .place-order {

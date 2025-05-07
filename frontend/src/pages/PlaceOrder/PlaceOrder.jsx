@@ -3,10 +3,18 @@ import "./PlaceOrder.css";
 import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import { Loader } from "lucide-react";
 
 const PlaceOrder = () => {
-  const { token, foodList, cartItems, apiUrl, getTotalCartAmount } =
-    useContext(StoreContext);
+  const {
+    token,
+    foodList,
+    cartItems,
+    apiUrl,
+    getTotalCartAmount,
+    loading,
+    setLoading,
+  } = useContext(StoreContext);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -26,6 +34,7 @@ const PlaceOrder = () => {
   };
   const placeOrder = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       let orderItems = [];
       foodList.map((item) => {
@@ -47,15 +56,14 @@ const PlaceOrder = () => {
         console.log(response);
         const { success_url } = response.data;
         window.location.replace(success_url);
+        setLoading(false);
       }
     } catch (err) {
       console.log(err);
+      setLoading(false);
       alert("Error");
     }
   };
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
   return (
     <form className="place-order" onSubmit={placeOrder}>
       <div className="place-order-left">
@@ -144,23 +152,22 @@ const PlaceOrder = () => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>{getTotalCartAmount}</p>
+              <p>{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>{2}</p>
+              <p>${10}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Total</p>
-              {/* <p>${3000}</p> */}
-              <p>{getTotalCartAmount}</p>
+              <p>{getTotalCartAmount()}</p>
             </div>
           </div>
 
-          <button type="submit" na>
-            PROCEED TO Payment
+          <button type="submit">
+            {!loading ? "Submit" : <Loader className="rolling-icon" />}
           </button>
         </div>
       </div>
